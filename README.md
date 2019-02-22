@@ -7,21 +7,22 @@
 
 ### 使用
 *注意：代码本身使用es6语法，在小程序中只需要开启es6转es5功能即可*  
-他目前仅暴露了一个pageMixins函数，用于选项的合并，而其代码本身只是拿vue中的选项合并代码进行改的。基本使用如下：
+他目前仅暴露了一个wxPageMixins函数，用于选项的合并，而其代码本身只是拿vue中的选项合并代码进行改的。基本使用如下：
 ```javascript
-// 引入pageMixins
-import pageMixins from '../../utils/behaviors/pageBehaviors.js';
+// 引入wxPageMixins
+import wxPageMixins from './wxPageMixins.js';
 import mixin from 'mixin.js';
 // 在微信小程序中
-Page(pageMixins({
+Page(wxPageMixins({
 	mixins: [mixin],
 	// other props
 }));
 ```
-pageMixins方法接受一个参数，这个参数和微信小程序中的Page构造函数规范一致，除此之外，他还可以接受一个mixins字段的参数，mixins定义需要合并的Page参数对象的数组。也可以直接是一个Page参数对象。pageMixins方法会遍历mixins字段（如果有值的话），把mixins字段中的参数选项和你直接传入的对象属性进行合并，然后返回合并后的对象。
+wxPageMixins方法接受一个参数，这个参数和微信小程序中的Page构造函数规范一致，除此之外，他还可以接受一个mixins字段的参数，mixins定义需要合并的Page参数对象的数组。也可以直接是一个Page参数对象。wxPageMixins方法会遍历mixins字段（如果有值的话），把mixins字段中的参数选项和你直接传入的对象属性进行合并，然后返回合并后的对象。
 
 ### 参数字段
-每个 mixins 可以包含一组数据、生命周期函数和方法，和微信小程序Page构造函数所接收的参数一致，pageMixins方法会把对象的mixins字段的属性、数据和方法以及你传入pageMixins方法的参数一起合并到一个对象中，并返回一个可用的Page构造函数的参数，生命周期函数会在对应时机被调用。每个mixins可以引用多个mixin对象 。 mixin对象中 也可以引用其他 mixin 。他们会按照数组的顺序进行依次合并。
+每个 mixins 可以包含一组数据、生命周期函数和方法，和微信小程序Page构造函数所接收的参数一致，wxPageMixins方法会把对象的mixins字段的属性、数据和方法以及你传入wxPageMixins方法的参数一起合并到一个对象中，并返回一个可用的Page构造函数的参数，生命周期函数会在对应时机被调用。每个mixins可以引用多个mixin对象 。 mixin对象中 也可以引用其他 mixin 。他们会按照数组的顺序进行依次合并。
++ mixin混入对象其实就是一个和微信小程序Page构造函数的参数具有相同规范的对象。
 
 ### 参数字段合并规则
 + data: 为一个函数或者一个数据对象，如果是一个函数则返回一个对象数据，数据对象合并时会进行递归合并，如果是原始值则后者覆盖前者，如果相同字段且都是一个对象时（不是数组，数组会直接覆盖，并不会合并），则进行递归合并。
@@ -45,4 +46,4 @@ pageMixins方法接受一个参数，这个参数和微信小程序中的Page构
 + 在混入对象（mixin）中，无法获取到Page构造函数执行的那一个作用域，mixin中的处理函数中只能拿到page对象，也就是this。但无法拿到调用Page构造函数之外的变量数据。
 
 ### 其他
-> 目前此mixin合并函数只针对于小程序所编写，并且，其语法使用es6的一些语法，所以最好只使用在小程序中，后面可能会出一个专门用于参数选项合并的工具函数。而不限于微信小程序使用。
+> 目前此mixin合并函数只针对于小程序所编写，并且，其语法使用es6的一些语法，所以最好只使用在小程序中。后面可能会编写一个通用的工具吧。
