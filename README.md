@@ -50,4 +50,4 @@ wxPageMixins方法接受一个参数，这个参数和微信小程序中的Page�
 
 ### license
 
-MIT
+[MIT](http://opensource.org/licenses/MIT)
