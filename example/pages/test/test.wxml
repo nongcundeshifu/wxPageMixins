@@ -1,0 +1,4 @@
+<!--pages/test/test.wxml-->
+
+<button bindtap="tap">点击执行tap方法</button>
+<button bindtap="click">点击执行click方法</button>
